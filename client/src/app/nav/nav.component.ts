@@ -1,5 +1,6 @@
 import { AccountService } from './../_services/account.service';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  constructor(public accountService: AccountService) {}
+  constructor(public accountService: AccountService, private toastr :ToastrService) {}
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -18,8 +19,10 @@ export class NavComponent implements OnInit {
     this.accountService.login(this.model).subscribe(
       (response) => {
         console.log(response);
+        this.toastr.success('you\'are logged in');
       },
       (error) => {
+        this.toastr.error(error.error);
         console.log(error);
       }
     );
@@ -27,6 +30,7 @@ export class NavComponent implements OnInit {
 
   logout() {
     this.accountService.logout();
+    this.toastr.info('you\'re logout');
   }
 
   getCurrentUser() {
