@@ -33,7 +33,8 @@
       dropdown
     >
       <ng-container>
-        <a class="dropdown-toggle text-light" dropdownToggle
+        <img src="{{user.photoUrl}}" alt="{{user.username}}">
+        <a class="dropdown-toggle text-light ml-2" dropdownToggle
           >Welcome {{ user.username }}</a
         >
         <div class="dropdown-menu" *dropdownMenu>

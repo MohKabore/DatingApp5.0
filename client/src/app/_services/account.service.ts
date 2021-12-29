@@ -18,8 +18,7 @@ export class AccountService {
     //const url =this.baseUrl+="account/login";
     return this.http.post<User>(url, model).pipe(
       tap((user: User) => {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.currentuserSource.next(user);
+        this.setCurrentuser(user);
       })
     );
   }
@@ -38,8 +37,7 @@ export class AccountService {
     const url = 'https://localhost:5001/api/account/register';
     return this.http.post(url, model).pipe(
       tap((user: User) => {
-        localStorage.setItem('user', JSON.stringify(user));
-        this.currentuserSource.next(user);
+        this.setCurrentuser(user);
       })
     );
   }

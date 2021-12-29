@@ -1,3 +1,4 @@
+import { FileUploadModule } from 'ng2-file-upload';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
@@ -14,6 +15,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   imports: [
     CommonModule,
     NgxSpinnerModule,
+    FileUploadModule,
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
       positionClass:'toast-bottom-right'
@@ -26,7 +28,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     ToastrModule,
     TabsModule,
     NgxGalleryModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FileUploadModule
   ]
 })
 export class SharedModule { }
