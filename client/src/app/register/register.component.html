@@ -1,13 +1,37 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="false">
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()" autocomplete="false">
   <h2 class="text-center text-primary">Sign Up</h2>
   <div class="form-group">
-    <input type="text" class="form-control" placeholder="Username" name="username" [(ngModel)]="model.username" />
+    <label style="margin-right: 10px;" class="control-label">I am a:</label>
+    <label class="radio-inline">
+      <input type="radio" formControlName="gender" value="male"> Male
+    </label>
+    <label class="radio-inline">
+      <input type="radio" formControlName="gender" value="female" class="ml-3"> Female
+    </label>
   </div>
-  <div class="form-group">
-    <input type="password"  class="form-control" placeholder="Password" name="password" [(ngModel)]="model.password" />
+  <app-text-input [formControl]='registerForm.controls["username"]' [label]="'Username'"></app-text-input>
+  <app-text-input [formControl]='registerForm.controls["knownAs"]' [label]="'Knwown As'"></app-text-input>
+  <app-date-input [formControl]='registerForm.controls["dateOfBirth"]' [maxDate]="maxDate" [label]="'Date of Birth'"></app-date-input>
+  <app-text-input [formControl]='registerForm.controls["city"]' [label]="'City'"></app-text-input>
+  <app-text-input [formControl]='registerForm.controls["country"]' [label]="'Country'"></app-text-input>
+  <app-text-input [formControl]='registerForm.controls["password"]' [label]="'Password'" [type]="'password'"></app-text-input>
+  <app-text-input [formControl]='registerForm.controls["confirmPassword"]' [label]="'Confirm password'" [type]="'password'"></app-text-input>
+  <div class="row">
+      <ul class="text-danger" *ngIf="validationErrors.length>0">
+          <li *ngFor="let error of validationErrors" >{{error}}</li>
+      </ul>
   </div>
   <div class="form-group text-center">
-    <button class="btn btn-success mr-2" type="submit"> Register</button>
-    <button class="btn btn-secondary" (click)="cancel()" type="button"> cancel</button>
+    <button [disabled]="!registerForm.valid" class="btn btn-success mr-2" type="submit">Register</button>
+    <button class="btn btn-secondary" (click)="cancel()" type="button">
+      cancel
+    </button>
   </div>
 </form>
+
+<pre>
+  <code>
+   <p> values :{{registerForm.value|json}}</p>
+   <p>status :{{registerForm.status}}</p>
+  </code>
+</pre>
