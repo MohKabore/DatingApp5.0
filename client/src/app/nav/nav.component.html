@@ -35,7 +35,7 @@
       <ng-container>
         <img src="{{user.photoUrl ||'./assets/user.png'}}" alt="{{user.username}}">
         <a class="dropdown-toggle text-light ml-2" dropdownToggle
-          >Welcome {{ user.username }}</a
+          >Welcome {{ user.knownAs }}</a
         >
         <div class="dropdown-menu" *dropdownMenu>
           <a routerLink="/member/edit" class="dropdown-item">Edit Profile</a>

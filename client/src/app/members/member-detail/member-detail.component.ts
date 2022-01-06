@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Member } from 'src/app/_models/member.model';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions,NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import {strings as frenchStrings} from 'ngx-timeago/language-strings/fr';
+import { TimeagoIntl } from 'ngx-timeago';
 
 @Component({
   selector: 'app-member-detail',
@@ -15,7 +17,10 @@ export class MemberDetailComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute) { }
+  constructor(private memberService: MembersService, private route: ActivatedRoute,intl: TimeagoIntl) {
+    intl.strings = frenchStrings;
+    intl.changes.next();
+   }
 
   ngOnInit(): void {
     const username = this.route.snapshot.paramMap.get('username');
