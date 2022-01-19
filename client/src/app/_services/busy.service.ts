@@ -11,10 +11,10 @@ busyRequestCount=0;
   busy() {
     this.busyRequestCount++;
     this.spinnerService.show(undefined, {
-      type: 'ball-square-spin',
+      type: 'square-loader',
       bdColor:'rgba(0,0,0,0.5)',
       color:'#333333',
-      fullScreen:true
+      fullScreen:false
     })
   }
 
