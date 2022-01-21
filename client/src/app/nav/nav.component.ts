@@ -33,6 +33,7 @@ export class NavComponent implements OnInit {
   logout() {
     this.accountService.logout();
     this.toastr.info('you\'re logout');
+    this.router.navigateByUrl('');
   }
 
   getCurrentUser() {

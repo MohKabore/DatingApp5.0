@@ -8,6 +8,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
 import {  TimeagoIntl, TimeagoFormatter, TimeagoCustomFormatter } from 'ngx-timeago';
@@ -39,7 +40,8 @@ export class MyIntl extends TimeagoIntl {
     }),
     NgxGalleryModule,
     TabsModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ModalModule.forRoot()
   ],
   exports:[
     BsDropdownModule,
@@ -51,7 +53,8 @@ export class MyIntl extends TimeagoIntl {
     BsDatepickerModule,
     PaginationModule,
     ButtonsModule,
-    TimeagoModule
+    TimeagoModule,
+    ModalModule
   ]
 })
 export class SharedModule { }
