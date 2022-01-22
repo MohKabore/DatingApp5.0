@@ -28,7 +28,7 @@ namespace API.Controllers
         public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
         {
             var username = User.GetUsername();
-            if (username == createMessageDto.RecipientUsername) return BadRequest("you can't send messages to your self");
+            if (username == createMessageDto.RecipientUsername.ToLower()) return BadRequest("you can't send messages to your self");
 
             var sender = await _userRepository.GetUserByUsernameAsync(username);
             var recipient = await _userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUsername);

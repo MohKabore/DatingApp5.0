@@ -9,19 +9,17 @@ import { Message } from 'src/app/_models/message';
   styleUrls: ['./member-messages.component.scss'],
 })
 export class MemberMessagesComponent implements OnInit {
-  @Input() messages: Message[];
   @Input() username: string;
   @ViewChild('messageForm') messageForm: NgForm;
   messageContent: string;
-  constructor(private msgService: MessageService) {}
+  constructor(public msgService: MessageService) {}
 
   ngOnInit(): void {}
 
   sendMessage() {
     this.msgService
       .sendMessage(this.username, this.messageContent)
-      .subscribe((message) => {
-        this.messages.push(message);
+      .then(() => {
         this.messageForm.reset();
       });
   }
