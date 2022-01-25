@@ -44,9 +44,9 @@ namespace API.Data
 
         public async Task<Group> GetGroupForConnection(string connectionId)
         {
-           return await _context.Groups.Include(x =>x.Connections)
-                                    .Where(x => x.Connections.Any(c =>c.ConnectionId==connectionId))
-                                    .FirstOrDefaultAsync();
+            return await _context.Groups.Include(x => x.Connections)
+                                     .Where(x => x.Connections.Any(c => c.ConnectionId == connectionId))
+                                     .FirstOrDefaultAsync();
         }
 
         public async Task<Message> GetMessage(int id)
@@ -56,15 +56,16 @@ namespace API.Data
 
         public async Task<PagedList<MessageDto>> GetMessageForUser(MessageParams messageParams)
         {
-            var query = _context.Messages.OrderByDescending(m => m.MessageSent).AsQueryable();
+            var query = _context.Messages.OrderByDescending(m => m.MessageSent)
+                                            .ProjectTo<MessageDto>(_mapper.ConfigurationProvider)
+                                            .AsQueryable();
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(u => u.Recipient.UserName == messageParams.Username && u.RecipientDeleted == false),
-                "Outbox" => query.Where(u => u.Sender.UserName == messageParams.Username && u.SenderDeleted == false),
-                _ => query.Where(u => u.Recipient.UserName == messageParams.Username && u.DateRead == null && u.RecipientDeleted == false)
+                "Inbox" => query.Where(u => u.RecipientUsername == messageParams.Username && u.RecipientDeleted == false),
+                "Outbox" => query.Where(u => u.SenderUsername == messageParams.Username && u.SenderDeleted == false),
+                _ => query.Where(u => u.RecipientUsername == messageParams.Username && u.DateRead == null && u.RecipientDeleted == false)
             };
-            var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
-            return await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
+            return await PagedList<MessageDto>.CreateAsync(query, messageParams.PageNumber, messageParams.PageSize);
         }
 
         public async Task<Group> GetMessageGroup(string groupName)
@@ -75,18 +76,18 @@ namespace API.Data
         public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUserName, string recipientName)
         {
             var messages = await _context.Messages
-            .Include(p => p.Sender).ThenInclude(p => p.Photos)
-            .Include(p => p.Recipient).ThenInclude(p => p.Photos)
-            .Where(m =>
+             .Where(m =>
                 m.Recipient.UserName == currentUserName
             && m.Sender.UserName == recipientName
             && m.RecipientDeleted == false
             || m.Recipient.UserName == recipientName
             && m.Sender.UserName == currentUserName
             && m.SenderDeleted == false
-            ).ToListAsync();
+            )
+            .ProjectTo<MessageDto>(_mapper.ConfigurationProvider)
+            .ToListAsync();
 
-            var unreadMessages = messages.Where(m => m.DateRead == null && m.Recipient.UserName == currentUserName).ToList();
+            var unreadMessages = messages.Where(m => m.DateRead == null && m.RecipientUsername == currentUserName).ToList();
             if (unreadMessages.Any())
             {
                 foreach (var message in unreadMessages)
@@ -96,7 +97,7 @@ namespace API.Data
                 await _context.SaveChangesAsync();
             }
 
-            return _mapper.Map<IEnumerable<MessageDto>>(messages);
+            return (messages);
         }
 
         public void RemoveConnection(Connection connection)
@@ -104,9 +105,5 @@ namespace API.Data
             _context.Connections.Remove(connection);
         }
 
-        public async Task<bool> SaveAllSync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
     }
 }
