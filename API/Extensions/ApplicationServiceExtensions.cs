@@ -3,6 +3,7 @@ using API.Helpers;
 using API.Interfaces;
 using API.Services;
 using API.SignalR;
+using API.workers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,7 @@ namespace API.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<LogUserActivity>();
+            services.AddHostedService<Worker>();
             // services.AddScoped<ILikesRepository, LikesRepository>();
             // services.AddScoped<IUserRepository, UserRepository>();
             // services.AddScoped<IMessageRepository, MessageRepository>();
