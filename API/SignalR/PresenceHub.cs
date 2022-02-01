@@ -23,6 +23,11 @@ namespace API.SignalR
 
             var currentUsers =await _tracker.GetOnlineUsers();
             await Clients.Caller.SendAsync("GetOnlineUsers",currentUsers);
+          
+          
+            await Clients.Caller.SendAsync("Testing",DateTime.UtcNow.ToShortTimeString());
+
+
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)

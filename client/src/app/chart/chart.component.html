@@ -1,0 +1,12 @@
+<ng-container *ngIf="chartService.data.length>0">
+ <table class="table table-sm table-dark">
+   <tr>
+     <td>label</td>
+     <td>Data</td>
+   </tr>
+   <tr *ngFor="let item of chartService.data" >
+     <td>{{item.label}}</td>
+     <td>{{item.data}}</td>
+   </tr>
+ </table>
+</ng-container>

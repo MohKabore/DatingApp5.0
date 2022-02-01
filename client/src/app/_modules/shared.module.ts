@@ -12,6 +12,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
 import {  TimeagoIntl, TimeagoFormatter, TimeagoCustomFormatter } from 'ngx-timeago';
+import { NgChartsModule } from 'ng2-charts';
 
 
 
@@ -25,6 +26,7 @@ export class MyIntl extends TimeagoIntl {
   imports: [
     CommonModule,
     NgxSpinnerModule,
+    NgChartsModule,
     FileUploadModule,
     BsDatepickerModule.forRoot(),
     ButtonsModule.forRoot(),
@@ -46,6 +48,7 @@ export class MyIntl extends TimeagoIntl {
   exports:[
     BsDropdownModule,
     ToastrModule,
+    NgChartsModule,
     TabsModule,
     NgxGalleryModule,
     NgxSpinnerModule,

@@ -32,6 +32,7 @@ import { UserManagementComponent } from './admin/user-management/user-management
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RoleModalComponent } from './modals/role-modal/role-modal.component';
 import { ModalDialogComponent } from './modals/modal-dialog/modal-dialog.component';
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ModalDialogComponent } from './modals/modal-dialog/modal-dialog.compone
     PhotoManagementComponent,
     RoleModalComponent,
     ModalDialogComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,

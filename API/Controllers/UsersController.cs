@@ -26,7 +26,8 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [Authorize]
+        //[Authorize]
+        [AllowAnonymous]
         [HttpGet("GetUsers")]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {

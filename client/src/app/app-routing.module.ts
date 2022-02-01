@@ -1,3 +1,4 @@
+import { ChartComponent } from './chart/chart.component';
 import { AdminGuard } from './_guards/admin.guard';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'member/edit', component: MemberEditComponent , canDeactivate: [PreventUnsavedChangesGuard]},
       { path: 'members/:username', component: MemberDetailComponent, resolve: {member:MemberDetailResolver }},
       { path: 'lists', component: ListsComponent },
+      { path: 'chart', component: ChartComponent },
       { path: 'messages', component: MessagesComponent },
       { path: 'admin', component: AdminPanelComponent, canActivate:[AdminGuard] },
     ],

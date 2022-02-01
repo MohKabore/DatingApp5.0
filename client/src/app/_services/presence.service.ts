@@ -50,9 +50,9 @@ onlineUsers$ = this.onlineUsersSource.asObservable();
      .onTap
      .pipe(take(1))
      .subscribe(()=> this.router.navigateByUrl('/members/'+username+'?tab=3'));
-
     })
   }
+
 
   stopHubConnection() {
     this.hubConnection.stop();
