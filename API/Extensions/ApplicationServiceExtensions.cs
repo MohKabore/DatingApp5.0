@@ -21,10 +21,7 @@ namespace API.Extensions
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<LogUserActivity>();
-            services.AddHostedService<Worker>();
-            // services.AddScoped<ILikesRepository, LikesRepository>();
-            // services.AddScoped<IUserRepository, UserRepository>();
-            // services.AddScoped<IMessageRepository, MessageRepository>();
+         //   services.AddHostedService<Worker>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddDbContext<DataContext>(options =>
             {
